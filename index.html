@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mira esto cuando te sientas mal cariño❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .contenedor {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 10;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        h1 {
+            color: #d63031;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #btn-si {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        #btn-si:hover {
+            transform: scale(1.1);
+        }
+
+        #btn-no {
+            background-color: #e74c3c;
+            color: white;
+            position: relative; /* Cambiado a relative para mantenerlo al lado del SÍ inicialmente */
+        }
+
+        .oculto {
+            display: none !important;
+        }
+
+        .mensaje-exito h2 {
+            color: #d63031;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .mensaje-exito p {
+            font-size: 1.2rem;
+            color: #636e72;
+        }
+
+        /* Animación de corazones flotantes */
+        .corazon {
+            position: absolute;
+            color: #ff7675;
+            font-size: 24px;
+            animation: flotar 4s linear infinite;
+            opacity: 0;
+            bottom: -10%;
+            pointer-events: none;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor" id="panel-pregunta">
+        <h1>¿Eres la persona más increible y preciosa de todas? ❤️</h1>
+        <div class="botones">
+            <button id="btn-si">¡SÍ, lo soy!</button>
+            <button id="btn-no">NOOO</button>
+        </div>
+    </div>
+
+    <div class="contenedor oculto" id="panel-exito">
+        <div class="mensaje-exito">
+            <h2>En serio eres la mas preciosa y vales muchisimo cariño. Eres muy capaz de conseguir cualquier cosa ❤️</h2>
+            <p>(Sabía que querrías darle que no 😡)</p>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        const btnSi = document.getElementById('btn-si');
+        const panelPregunta = document.getElementById('panel-pregunta');
+        const panelExito = document.getElementById('panel-exito');
+
+        // Función para mover el botón NO de forma aleatoria al pulsarle
+        function moverBotonNo() {
+            const padding = 50;
+            const xMax = window.innerWidth - btnNo.offsetWidth - padding;
+            const yMax = window.innerHeight - btnNo.offsetHeight - padding;
+
+            const randomX = Math.max(padding, Math.floor(Math.random() * xMax));
+            const randomY = Math.max(padding, Math.floor(Math.random() * yMax));
+
+            // Se vuelve absoluto/fijo SOLO después de que lo pulsan la primera vez
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+            btnNo.style.zIndex = '999';
+        }
+
+        // Eliminado el evento 'mouseenter'. Ahora solo reacciona al hacer clic/pulsar
+        btnNo.addEventListener('click', moverBotonNo);
+
+        // Evento al presionar SÍ
+        btnSi.addEventListener('click', () => {
+            panelPregunta.classList.add('oculto');
+            panelExito.classList.remove('oculto');
+            iniciarLluviaCorazones();
+        });
+
+        // Crear corazones animados de fondo
+        function iniciarLluviaCorazones() {
+            setInterval(() => {
+                const corazon = document.createElement('div');
+                corazon.classList.add('corazon');
+                corazon.innerHTML = '❤️';
+                corazon.style.left = Math.random() * 100 + 'vw';
+                corazon.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                corazon.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                
+                document.body.appendChild(corazon);
+
+                setTimeout(() => {
+                    corazon.remove();
+                }, 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
